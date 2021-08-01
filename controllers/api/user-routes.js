@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
             res.status(404).json({ message: 'No user found with this id'});
             return;
         }
-        res.json(db.UserData);
+        res.json(dbUserData);
     })
     .catch(err => {
         console.log(err);
@@ -49,9 +49,35 @@ router.post('/', (req, res) => {
     });
 });
 
+//User Login
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+    .then(dbUserData => {
+        if(!dbUserData){
+            res.status(400).json({ message: 'No User with that email address!' });
+            return;
+        }
+        res.json({ user: dbUserData });
+
+        const validPassword = dbUserData.checkPassword(req.body.password);
+        if (!validPassword) {
+            res.status(400).json({ message: 'Incorrect password!' });
+            return;
+          }
+      
+          res.json({ user: dbUserData, message: 'You are now logged in!' });
+        });
+
+});
+
 //UPDATE Users
 router.put('/:id', (req, res) => {
     User.update(req.body, {
+        individualHooks: true,
         where: {
             id: req.params.id
         }
