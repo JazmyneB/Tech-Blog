@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MVC Tech Blog</title>
+  <title>Tech Blog</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
   <div class="wrapper">
-      <header class="hero">
+      <header class="enter">
           <div>
-            <nav class"nav">
+            <nav class="nav">
                     <a class="link" href="/">Home</a>
-                    <a class="link" href="/dashboard">Dashboard</a>
                     {{#if loggedIn}}
+                    <a class="link" href="/dashboard">Dashboard</a>
                     <a class="link" href="/" id="logout">Logout</a>
                     {{else}}
                     <a class="link" href="/login">Login</a>
@@ -23,12 +23,15 @@
                 </nav>          
           </div>
 
-          <h1 class="app-title"><i class="fab "></i>The Tech Blog</h1>
+          <h1 class="app-title"><i ></i>The Tech Blog</h1>
       </header>
 
     <main>
       {{{ body }}}
     </main>
+    <footer>
+      Thanks for visiting!
+    </footer>
   </div>
 
     {{#if loggedIn}}
